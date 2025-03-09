@@ -5,6 +5,7 @@ import common.money.Percentage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
 import javax.sql.DataSource;
@@ -27,7 +28,7 @@ public class JdbcAccountRepositoryTests {
 	@BeforeEach
 	public void setUp() throws Exception {
 		dataSource = createTestDataSource();
-		repository = new JdbcAccountRepository(dataSource);
+		repository = new JdbcAccountRepository(createJdbcTemplate());
 	}
 
 	@Test
@@ -91,5 +92,9 @@ public class JdbcAccountRepositoryTests {
 			.addScript("/rewards/testdb/schema.sql")
 			.addScript("/rewards/testdb/data.sql")
 			.build();
+	}
+
+	private JdbcTemplate createJdbcTemplate(){
+		return new JdbcTemplate(createTestDataSource());
 	}
 }
