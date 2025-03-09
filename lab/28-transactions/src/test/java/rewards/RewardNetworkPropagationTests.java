@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
@@ -30,9 +31,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // TODO-07: Re-run this test, it should now pass.
 // - Think about why this test passes now.
-
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = { SystemTestConfig.class })
+@SpringJUnitConfig(SystemTestConfig.class)
+//@ExtendWith(SpringExtension.class)
+//@ContextConfiguration(classes = { SystemTestConfig.class })
 public class RewardNetworkPropagationTests {
 
 	/**
@@ -64,10 +65,10 @@ public class RewardNetworkPropagationTests {
 
 		// Run the test - generate a reward
 		Dining dining = Dining.createDining("100.00", "1234123412341234", "1234567890");
-		rewardNetwork.rewardAccountFor(dining);
+		rewardNetwork.rewardAccountFor(dining);  // requires_new propagation has committed in the new transaction
 
 		// Rollback the transaction started by this test
-		transactionManager.rollback(status);
+		transactionManager.rollback(status); //rolls back the outer transaction
 
 		// Assert that a Reward has been saved to the database - for this to be true
 		// the RewardNetwork must run and commit its OWN transaction
