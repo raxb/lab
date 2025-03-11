@@ -8,15 +8,14 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
-public class JdbcBootApplicationTests {
-    public static final String QUERY = "SELECT count(*) FROM T_ACCOUNT";
+class JdbcBootApplicationTests {
+    private static final String QUERY = "SELECT count(*) FROM T_ACCOUNT";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Test
-    public void testNumberOfAccount() {
-
+    void testNumberOfAccount() {
         long count = jdbcTemplate.queryForObject(QUERY, Long.class);
 
         assertThat(count).isEqualTo(21L);

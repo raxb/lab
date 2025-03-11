@@ -15,7 +15,6 @@ public class JdbcBootApplication {
 
     @Bean
     CommandLineRunner commandLineRunner(JdbcTemplate jdbcTemplate){
-
         String QUERY = "SELECT count(*) FROM T_ACCOUNT";
 
         return args -> System.out.println("Hello, there are "

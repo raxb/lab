@@ -44,6 +44,7 @@
         </dependency>
      </dependencies>
 
+     <!-- to generate fat jar executable and run the application for maven -->
      <build>
           <plugins>
                <plugin>
