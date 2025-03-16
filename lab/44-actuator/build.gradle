@@ -12,3 +12,15 @@ dependencies {
 // TO-DO-07: Add BuildInfo task to the Spring Boot Gradle plugin
 
 // TO-DO-08: Add additional properties of name, javaVersion, operatingSystem
+springBoot  {
+    buildInfo {
+        properties {
+            name = "actuator app"
+            additional = [
+                    javaVersion:     System.properties['java.version'],
+                    operatingSystem: "${System.properties['os.name']} (${System.properties['os.version']})"
+            ]
+        }
+    }
+}
+
